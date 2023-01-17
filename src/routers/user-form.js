@@ -9,4 +9,6 @@ route.put('/update/', userAuth,clientController.updateClient)
 route.delete('/delete/', userAuth,clientController.deleteClient)
 route.get('/count',clientController.countClient)
 route.get('/countById',clientController.countClientById)
+route.get('/getClientById',clientController.getClientById)
+route.get('/CountClientByUserId',clientController.CountClientByUserId)
 module.exports=route

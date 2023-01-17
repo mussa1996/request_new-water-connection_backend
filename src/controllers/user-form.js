@@ -29,7 +29,8 @@ exports.create = async (req, res) => {
       passport: req.body.passport,
       issued_date: req.body.issued_date,
       expiry_date: req.body.expiry_date,
-      status:req.body.status
+      status:req.body.status,
+      user_id:req.user._id
     });
 
     const details = await client.save();
@@ -113,7 +114,8 @@ exports.updateClient = async (req, res) => {
       passport: req.body.passport,
       issued_date: req.body.issued_date,
       expiry_date: req.body.expiry_date,
-      status:req.body.status
+      status:req.body.status,
+     
 
   });
 
@@ -152,3 +154,33 @@ exports.countClientById = async(req, res) => {
       });
   })
 }
+exports.getClientById = async (req, res) => {
+  
+  await UserForm.find({
+      user_id: req.query.user_id
+  }).populate("user_id", "name")
+  .then((form) => {
+    form.map((form) => {
+      form._doc.id=form._id;
+      delete form._doc._id;
+      })
+     
+    res.send({
+      message: "Request found are:",
+      form,
+    });
+  });
+};
+exports.CountClientByUserId = async(req, res) => {
+
+  await UserForm.find({
+    user_id: req.query.user_id
+}).count().then((data) => {
+
+      res.status(200).send({
+          message: "Request found are:",
+          data,
+      });
+  })
+}
+

@@ -137,7 +137,12 @@ const userFormSchema = new mongoose.Schema({
     type: String,
     trim: true,
     default:"Pending"
-  }
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
 });
 //generating auth token
 userFormSchema.methods.generateAuthToken = async function(){

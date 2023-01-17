@@ -63,6 +63,7 @@ exports.deleteBranch = async (req, res) => {
 exports.updateBranch = async (req, res) => {
   const branch = new Branch({
     _id: req.query.id,
+    branch_code: req.body.branch_code,
       branch_name: req.body.branch_name,
 
   });
@@ -81,7 +82,7 @@ exports.updateBranch = async (req, res) => {
 
 exports.countBranch = async (req,res) => {
   
-  await Branch.find().count().then((data)=>{
+  await Branch.find().count().then((data)=>{ 
     
     res.status(200).send({
       message: "branch found are:",
