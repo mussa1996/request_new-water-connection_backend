@@ -18,7 +18,9 @@ app.use(fileupload({useTempFiles:true}))
 app.use('/api', routes);
 app.get("/",(req, res) => {
   res.send("Wasac Project");
+  
 });  
+
 const PORT = process.env.PORT || 4500;
 
 app.listen(PORT, () => {

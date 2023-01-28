@@ -3,7 +3,12 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 require("dotenv").config();
+
 const userFormSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: 'WASAC/WT/00001'
+  },
   first_name: {
     type: String,
     required: true,
@@ -99,7 +104,7 @@ const userFormSchema = new mongoose.Schema({
   id_type:{
     type: String,
     trim: true,
-    required:true
+    required:false
   },
   id_number:{
     type: String,
@@ -110,11 +115,6 @@ const userFormSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required:false
-  },
-  issued_authority:{
-    type: String,
-    trim: true,
-    required:true
   },
   issued_date:{
     type: Date,
@@ -129,13 +129,15 @@ const userFormSchema = new mongoose.Schema({
 
   id_image: {
     type: String,
-    required:true,
+    default: "default.jpg",
+  },
+  passport_image: {
+    type: String,
     default: "default.jpg",
   },
   status:{
-
     type: String,
-    trim: true,
+    required: true,
     default:"Pending"
   },
   user_id: {
@@ -144,6 +146,11 @@ const userFormSchema = new mongoose.Schema({
     required: true,
   },
 });
+// generate id 
+userFormSchema.virtual('customId').get(function() {
+  return `WASAC/WT/${this._id.toString().padStart(5, '0')}`;
+});
+
 //generating auth token
 userFormSchema.methods.generateAuthToken = async function(){
   const user=this

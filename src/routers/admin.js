@@ -7,8 +7,8 @@ const route=express.Router()
 // user router
 route.post('/login',userController.loginUser)
 route.post('/logout',adminAuth,userController.logout)
-route.get('/getAll',adminAuth,userController.findAll)
-route.get('/getOne/',adminAuth,userController.findOne)
+route.get('/getAll',userController.findAll)
+route.get('/getOne/',userController.findOne)
 route.delete('/delete/',adminAuth,userController.deleteUser)
 // branch router
 route.get('/getAll/branch', branchController.getBranch)
@@ -18,9 +18,10 @@ route.get('/count/branch', branchController.countBranch)
 route.get('/countById/branch',branchController.countBranchById)
 route.post('/update/branch/',branchController.updateBranch)
 //request router
-route.get('/getAll/request',adminAuth,clientController.getClient)
-route.get('/getOne/request/', adminAuth,clientController.getOneClient)
-route.put('/update/request/', adminAuth,clientController.updateClient)
+route.get('/getAll/request',clientController.getClient)
+route.get('/getOne/request/',clientController.getOneClient)
+route.put('/update/request/', clientController.updateClient)
+route.put('/update/status/', clientController.updateStatus)
 route.delete('/delete/request/', adminAuth,clientController.deleteClient)
 
 module.exports=route
